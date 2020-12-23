@@ -1,4 +1,5 @@
 import {parseScript} from 'esprima';
+import {Pattern} from 'estree'
 
 interface IIndexService {
     log(str: string): void;
@@ -11,9 +12,25 @@ class IndexServie implements IIndexService {
     }
 }
 
+//获取函数的参数
 function getParmas(fn: Function) {
     const ast = parseScript(fn.toString());
-    console.log("ast===", ast);
+    const node: any = ast.body[0]
+    const lastnode = node.body.body[0].value
+    let fnParms: Pattern[] = []
+
+    if (lastnode.type === 'FunctionExpression') {
+        fnParms = lastnode.params
+    }
+    let vaildParams: string[] = []
+    console.log("fnParms===", fnParms);
+    fnParms.forEach((obj) => {
+        if (obj.type === 'Identifier') {
+            vaildParams.push(obj.name)
+        }
+    })
+    console.log("vaildParams===", vaildParams);
+    return vaildParams
 }
 
 
@@ -21,12 +38,16 @@ function getParmas(fn: Function) {
 function controller<T extends { new(...args: any[]): {} }>(constructor: T) {
     class Controller extends constructor {
         constructor(...args: any[]) {
-            getParmas(constructor)
-            super(args)
+            super(args);
+            const _params = getParmas(constructor);
+            let _identity: string;
+            for (_identity of _params) {
+                this[_identity] = new IndexServie();
+            }
         }
     }
 
-    return Controller
+    return Controller;
 }
 
 @controller
@@ -41,6 +62,5 @@ class IndexController {
         this.indexServer.log('王君玮的测测试')
     }
 }
-
 
 export const base = new IndexController()

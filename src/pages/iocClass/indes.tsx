@@ -2,9 +2,13 @@ import * as React from "react";
 
 import {base} from './base'
 
-const IOCClass: React.FC = (props) => {
+interface IocInterFace {
+    children?: React.ReactNode
+}
+
+const IOCClass: React.FC<IocInterFace> = props => {
     console.log("props===", props);
-    console.log("base===", base);
+    console.log("base===", base.info());
     return (
         <div>12312312312312313</div>
     )

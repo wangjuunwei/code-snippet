@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,
     "target": "es5",
     "lib": [
       "dom",
