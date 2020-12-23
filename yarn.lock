@@ -1616,6 +1616,13 @@
     "@types/estree" "*"
     "@types/json-schema" "*"
 
+"@types/esprima@^4.0.2":
+  version "4.0.2"
+  resolved "http://192.168.1.2:8081/repository/npm-group/@types/esprima/-/esprima-4.0.2.tgz#0303602d0644086d4802635d7abc9ac0eec57207"
+  integrity sha1-AwNgLQZECG1IAmNderyawO7Fcgc=
+  dependencies:
+    "@types/estree" "*"
+
 "@types/estree@*":
   version "0.0.45"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-0.0.45.tgz#e9387572998e5ecdac221950dab3e8c3b16af884"

@@ -42,5 +42,5 @@ class IndexController {
     }
 }
 
-const index = new IndexController()
-// index.info()
+
+export const base = new IndexController()
