@@ -2,7 +2,6 @@
   "name": "code-snippet",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -16,8 +15,11 @@
     "@types/react-router-config": "^5.0.2",
     "@types/react-router-dom": "^5.1.6",
     "antd": "^4.9.4",
+    "babel-plugin-parameter-decorator": "^1.0.16",
+    "customize-cra": "^1.0.0",
     "esprima": "^4.0.1",
     "react": "^17.0.1",
+    "react-app-rewired": "^2.1.8",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
     "react-router-config": "^5.1.1",
@@ -28,9 +30,9 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.12.12"
   }
 }
