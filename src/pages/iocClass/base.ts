@@ -1,5 +1,18 @@
 import {parseScript} from 'esprima';
 import {Pattern} from 'estree'
+import CreateIoc from "./ioc";
+
+import 'reflect-metadata';
+
+const container = new CreateIoc()
+
+interface ITypes {
+    [key: string]: Symbol
+}
+
+const TYPES: ITypes = {
+    indexService: Symbol.for('indexService'),
+};
 
 interface IIndexService {
     log(str: string): void;
@@ -11,6 +24,8 @@ class IndexServie implements IIndexService {
         console.log(str)
     }
 }
+
+container.bind(TYPES.indexService, () => new IndexServie())
 
 //获取函数的参数
 function getParmas(fn: Function) {
@@ -33,8 +48,15 @@ function getParmas(fn: Function) {
     return vaildParams
 }
 
+//判读一个对象是否有对应的key
+// hasOwnProperty for in 的读写屏障
+function hasKey<O extends Object>(obj: O, key: keyof any): key is keyof O {
+    return obj.hasOwnProperty(key)
+}
+
 
 // {} object 代码块 函数体。。
+
 function controller<T extends { new(...args: any[]): {} }>(constructor: T) {
     class Controller extends constructor {
         constructor(...args: any[]) {
@@ -42,7 +64,10 @@ function controller<T extends { new(...args: any[]): {} }>(constructor: T) {
             const _params = getParmas(constructor);
             let _identity: string;
             for (_identity of _params) {
-                this[_identity] = new IndexServie();
+                const _meta = Reflect.getMetadata(TYPES[_identity],constructor)
+                if (hasKey(this, _identity)&&_meta) {
+                    this[_identity] = _meta;
+                }
             }
         }
     }
@@ -50,16 +75,30 @@ function controller<T extends { new(...args: any[]): {} }>(constructor: T) {
     return Controller;
 }
 
+function inject(serviceIdentifier: Symbol): Function {
+
+    return (target: Function, targetKey: string, index: number) => {
+        if (!targetKey) {
+            Reflect.defineMetadata(
+                serviceIdentifier,
+                container.get(serviceIdentifier),
+                target
+            )
+        }
+    }
+}
+
 @controller
 class IndexController {
-    private indexServer: IIndexService;
+    private indexService: IIndexService;
 
-    constructor(indexServer?: IIndexService) {
-        this.indexServer = indexServer!
+    constructor(@inject (TYPES.indexService) indexService?: IIndexService) {
+        this.indexService = indexService!;
+        console.log('我是原来的构造函数');
     }
 
     info() {
-        this.indexServer.log('王君玮的测测试')
+        this.indexService.log('王君玮的测测试')
     }
 }
 

@@ -7,7 +7,6 @@ interface IocInterFace {
 }
 
 const IOCClass: React.FC<IocInterFace> = props => {
-    console.log("props===", props);
     console.log("base===", base.info());
     return (
         <div>12312312312312313</div>
