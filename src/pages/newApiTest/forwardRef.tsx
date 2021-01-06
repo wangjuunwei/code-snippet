@@ -1,8 +1,16 @@
 import React from 'react'
 
-const ForwardRef: React.FC = props => {
+import Copy from './components/copy'
 
-    return (<div>函数饮用的ForwardRef</div>)
+const ForwardRefFun: React.FC = () => {
+    let textValue = '什么贵'
+    return (
+        <Copy>
+            <button type='submit'>复制</button>
+        </Copy>
+    )
 }
 
-export default React.memo(ForwardRef)
+export default React.memo(ForwardRefFun)
+
+
