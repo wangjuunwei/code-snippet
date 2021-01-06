@@ -2,7 +2,6 @@ import React from 'react'
 
 interface CopyProps extends React.PropsWithChildren<{}> {
     text?: string,
-
 }
 
 interface InputRefProps {
@@ -11,7 +10,13 @@ interface InputRefProps {
     remo?(): void
 }
 
-type InputWarComp = React.ForwardRefExoticComponent<React.RefAttributes<HTMLInputElement> & InputRefProps & React.ComponentPropsWithRef<any>>
+type InputInnerItem = InputRefProps & React.RefAttributes<HTMLInputElement> & React.ComponentPropsWithRef<any>
+
+/**
+ * @description 这里是ForwardRefExoticComponent 尝试
+ * 可以 React.forwardRef<InputRefProps, CopyProps>(CopyInnerItem) as InputWarComp 使用
+ */
+type InputWarComp = React.ForwardRefExoticComponent<InputInnerItem>
 
 const CopyInnerItem: React.ForwardRefRenderFunction<InputRefProps, CopyProps> = ({text}, copyInputRef) => {
     const inputRef = React.useRef<HTMLInputElement>(null)
@@ -33,7 +38,7 @@ const CopyInnerItem: React.ForwardRefRenderFunction<InputRefProps, CopyProps> = 
     return (<input type="text" ref={inputRef}/>)
 }
 
-const CopyInner = React.forwardRef<InputRefProps, CopyProps>(CopyInnerItem) as InputWarComp
+const CopyInner = React.forwardRef<InputRefProps, CopyProps>(CopyInnerItem)
 
 const Copy: React.FC<CopyProps> = ({text, children}) => {
     const inputRef = React.useRef <InputRefProps>(null)
