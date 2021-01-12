@@ -2,36 +2,74 @@ import React from 'react'
 import {Wrapper, Title} from './css/useState'
 import {Button} from 'antd'
 
+interface UseStateInteface<T> {
+    count: T
+}
+
+/**
+ * @deprecated useState 的 TypeScript 定义
+ *
+ * type Dispatch<A> = (value: A) => void
+ *
+ * type SetStateAction<S> = S | ((prevState: S) => S)
+ *
+ * function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
+ *
+ * function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+ */
+
+/**
+ * TODO 基础用法
+ * @description  setState 函数用于更新 state。它接收一个新的 state 值并将组件的一次重新渲染加入队列。
+ * @return 返回一个state，以及更新state的函数
+ */
+const SimpleUseState: React.FC<{}> = () => {
+
+    const [simpleState, setSimpleState] = React.useState<number>(0);
+
+    const changeSimpleState = (count: number) => {
+
+        setSimpleState(count)
+    }
+    return (
+        <div className='simpleBox'>
+            <Title>{simpleState}</Title>
+            <Button className='simpleBox-button' type="primary"
+                    onClick={() => changeSimpleState(simpleState + 1)}>点击我我会变形的</Button>
+        </div>
+    )
+}
+
+/**
+ * TODO 函数式更新
+ * @description 如果新的 state 需要通过使用先前的 state 计算得出，那么可以将函数传递给 setState。该函数将接收先前的 state，并返回一个更新后的值。
+ * @param count
+ * @constructor
+ */
+const FunUseState: React.FC<UseStateInteface<number>> = ({count}) => {
+
+    const [funState, setFunState] = React.useState<number>(count)
+
+    return (
+        <div className='simpleBox'>
+            <Title>{funState}</Title>
+            <Button className='simpleBox-button' type="primary"
+                    onClick={() => setFunState((precode) => precode + 1)}>点击+1</Button>
+            <Button className='simpleBox-button' type="primary"
+                    onClick={() => setFunState((precode) => precode - 1)}>点击-1</Button>
+        </div>
+    )
+}
+
 const UseState: React.FC = () => {
-
-    /**
-     * @deprecated useState 的 TypeScript 定义
-     *
-     * type Dispatch<A> = (value: A) => void
-     *
-     * type SetStateAction<S> = S | ((prevState: S) => S)
-     *
-     * function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
-     *
-     * function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
-     */
-
-
-    const [simpaleText, setSimpleText] = React.useState<string>('我是useState的最基础版本')
-
-
     return (
         <>
             <Wrapper>
-                <div className='simpleBox'>
-                    <Title>{simpaleText}</Title>
-                    <Button className='simpleBox-button' type="primary"
-                            onClick={() => setSimpleText('我变形成功了')}>点击我我会变形的</Button>
-                </div>
-
+                <SimpleUseState></SimpleUseState>
+                <FunUseState count={0}></FunUseState>
             </Wrapper>
         </>
     )
 }
 
-export default UseState
+export default React.memo(UseState)
