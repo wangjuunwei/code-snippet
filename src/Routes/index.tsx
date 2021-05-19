@@ -7,8 +7,10 @@ const NewApiTest = React.lazy(() => import('../pages/UseApiDemo/index'))
 const ForwardRef = React.lazy(() => import('../pages/UseApiDemo/forwardRef'))
 const UseState = React.lazy(() => import('../pages/UseApiDemo/useState'))
 
+const Navigation =React.lazy(()=>import('../pages/naviGation/index'))
+
 export const routes: RouteConfig[] = [
-    {path: '/', exact: true, render: () => <div>123123</div>},
+    {path: '/', exact: true, component:Navigation},
     //Typscript中的装饰器配合Ioc容器 完成依赖的 的注入
     {path: '/iocclass', exact: true, component: IocClass},
     {

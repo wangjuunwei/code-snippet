@@ -10,13 +10,13 @@ interface InputRefProps {
     remo?(): void
 }
 
-type InputInnerItem = InputRefProps & React.RefAttributes<HTMLInputElement> & React.ComponentPropsWithRef<any>
+// type InputInnerItem = InputRefProps & React.RefAttributes<HTMLInputElement> & React.ComponentPropsWithRef<any>
 
 /**
  * @description 这里是ForwardRefExoticComponent 尝试
  * 可以 React.forwardRef<InputRefProps, CopyProps>(CopyInnerItem) as InputWarComp 使用
  */
-type InputWarComp = React.ForwardRefExoticComponent<InputInnerItem>
+// type InputWarComp = React.ForwardRefExoticComponent<InputInnerItem>
 
 const CopyInnerItem: React.ForwardRefRenderFunction<InputRefProps, CopyProps> = ({text}, copyInputRef) => {
     const inputRef = React.useRef<HTMLInputElement>(null)
