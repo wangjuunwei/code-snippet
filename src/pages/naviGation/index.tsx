@@ -39,7 +39,6 @@ const HomeWelcome: React.FC<{}> = () => {
  * @constructor
  */
 const NaviGation: React.FC<routeProps> = ({route, ...props}) => {
-    console.log("route===",props);
     return (
         <Wrapper>
             <WrapperHedaer></WrapperHedaer>

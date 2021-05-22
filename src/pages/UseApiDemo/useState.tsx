@@ -1,6 +1,9 @@
 import React from 'react'
 import {Wrapper, Title} from './css/useState'
 import {Button} from 'antd'
+import CodeWrapper from '../../component/createCodeWrapper'
+
+import testHtml from './md/test.md'
 
 interface UseStateInteface<T> {
     count: T
@@ -72,4 +75,10 @@ const UseState: React.FC = () => {
     )
 }
 
-export default React.memo(UseState)
+const UseStateWrapper: React.FC = () => {
+    return (
+        <CodeWrapper component={UseState} innerHtml={testHtml}/>
+    )
+}
+
+export default React.memo(UseStateWrapper)
