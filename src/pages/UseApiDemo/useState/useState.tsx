@@ -1,9 +1,9 @@
 import React from 'react'
 import {Wrapper, Title} from './css/useState'
 import {Button} from 'antd'
-import CodeWrapper from '../../component/createCodeWrapper'
+import CodeWrapper from '../../../component/createCodeWrapper'
 
-import testHtml from './md/test.md'
+import useState from './useState.md'
 
 interface UseStateInteface<T> {
     count: T
@@ -38,7 +38,7 @@ const SimpleUseState: React.FC<{}> = () => {
         <div className='simpleBox'>
             <Title>{simpleState}</Title>
             <Button className='simpleBox-button' type="primary"
-                    onClick={() => changeSimpleState(simpleState + 1)}>点击我我会变形的</Button>
+                    onClick={() => changeSimpleState(simpleState + 1)}>我是基础用法</Button>
         </div>
     )
 }
@@ -57,9 +57,9 @@ const FunUseState: React.FC<UseStateInteface<number>> = ({count}) => {
         <div className='simpleBox'>
             <Title>{funState}</Title>
             <Button className='simpleBox-button' type="primary"
-                    onClick={() => setFunState((precode) => precode + 1)}>点击+1</Button>
+                    onClick={() => setFunState((precode) => precode + 1)}>我式函数用法点击+1</Button>
             <Button className='simpleBox-button' type="primary"
-                    onClick={() => setFunState((precode) => precode - 1)}>点击-1</Button>
+                    onClick={() => setFunState((precode) => precode - 1)}>我是函数用法点击-1</Button>
         </div>
     )
 }
@@ -77,7 +77,7 @@ const UseState: React.FC = () => {
 
 const UseStateWrapper: React.FC = () => {
     return (
-        <CodeWrapper component={UseState} innerHtml={testHtml}/>
+        <CodeWrapper component={UseState} innerHtml={useState} />
     )
 }
 

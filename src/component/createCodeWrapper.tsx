@@ -1,27 +1,26 @@
 import React from 'react'
 
-import {Wrapper,CodeAction} from "./css/codeWrapper";
-import {Divider} from 'antd';
+import {Wrapper, CodeAction} from "./css/codeWrapper";
 import MarkDownComponent from "./createMarkDown";
+
+import WrapperHedaer  from './createHeader'
 
 interface CodeWrapperType {
     component: React.FC,
-    innerHtml: string
+    innerHtml: string,
 }
 
 const CodeWrapper: React.FC<CodeWrapperType> = ({...props}) => {
-    console.log("props===", props);
-    const [isShow, setIshow] = React.useState<boolean>(false)
+    const [isShow, setIshow] = React.useState<boolean>(true)
 
 
     return (
-        <div>
+        <>
+            <WrapperHedaer/>
             <Wrapper>
                 <section className='code-box-demo'>
                     <props.component/>
                 </section>
-                <Divider orientation="left">内容简介</Divider>
-                <section className='code-box-meta'></section>
                 <CodeAction className='code-box-actions' isShow={isShow}>
                 <span className='code-box-code-action' onClick={() => setIshow((pre) => !pre)}>
                     {!isShow ?
@@ -31,9 +30,10 @@ const CodeWrapper: React.FC<CodeWrapperType> = ({...props}) => {
                              className={isShow ? 'code-expand-icon-show' : 'code-expand-icon-hide'}/>}
                 </span>
                 </CodeAction>
-                {isShow && <section className='highlight-wrapper'><MarkDownComponent innerHtml={props.innerHtml}/></section>}
+                {isShow &&
+                <section className='highlight-wrapper'><MarkDownComponent innerHtml={props.innerHtml}/></section>}
             </Wrapper>
-        </div>
+        </>
     )
 
 }

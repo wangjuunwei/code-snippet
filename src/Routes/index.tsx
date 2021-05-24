@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom'
 const IocClass = React.lazy(() => import('../pages/iocClass/indes'))
 const NewApiTest = React.lazy(() => import('../pages/UseApiDemo/index'))
 const ForwardRef = React.lazy(() => import('../pages/UseApiDemo/forwardRef'))
-const UseState = React.lazy(() => import('../pages/UseApiDemo/useState'))
+const UseState = React.lazy(() => import('../pages/UseApiDemo/useState/useState'))
 
 const Navigation =React.lazy(()=>import('../pages/naviGation/index'))
 

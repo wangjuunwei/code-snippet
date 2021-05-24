@@ -1,22 +1,13 @@
 import React from 'react'
-import {Wrapper, Header, HomeWe} from "./css";
+import {Wrapper, HomeWe} from "./css";
 
 import MapComponents from "./mapComponents";
 
 import {RouteConfigComponentProps} from 'react-router-config'
 
+import WrapperHedaer from '../../component/createHeader'
+
 type routeProps = RouteConfigComponentProps
-
-/**
- * @summary header 展示组件
- * @constructor
- */
-const WrapperHedaer: React.FC<{}> = () => {
-    return (
-        <Header><h1><a href='/'>CodeTools - 工具集合</a></h1></Header>
-    )
-}
-
 
 /**
  * @summary 欢迎组件
