@@ -9,6 +9,7 @@ const UseState = React.lazy(() => import('../pages/UseApiDemo/useState/useState'
 const UseEffect = React.lazy(() => import('../pages/UseApiDemo/useEffect/index'))
 const UseContext = React.lazy(() => import('../pages/UseApiDemo/useContext/index'))
 const UseReducer = React.lazy(() => import('../pages/UseApiDemo/useReducer/index'))
+const UseCallback = React.lazy(()=>import('../pages/UseApiDemo/useCallback/index'))
 
 const Navigation = React.lazy(() => import('../pages/naviGation/index'))
 
@@ -25,7 +26,8 @@ export const routes: RouteConfig[] = [
             {path: '/UseApiDemo/useState', exact: true, component: UseState},
             {path: '/UseApiDemo/useEffect', exact: true, component: UseEffect},
             {path: '/UseApiDemo/useContext', exact: true, component: UseContext},
-            {path: '/UseApiDemo/useReducer', exact: true, component: UseReducer}
+            {path: '/UseApiDemo/useReducer', exact: true, component: UseReducer},
+            {path: '/UseApiDemo/useCallback', exact: true, component: UseCallback}
         ]
     },
     {path: '*', render: () => <div>405</div>},

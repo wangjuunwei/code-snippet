@@ -17,6 +17,10 @@
       {
         "title": "useReducer 用法",
         "href": "/UseApiDemo/useReducer"
+      },
+      {
+        "title": "useCallback 用法",
+        "href": "/UseApiDemo/useCallback"
       }
     ]
   },
