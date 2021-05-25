@@ -13,6 +13,10 @@
       {
         "title": "useContext 用法",
         "href": "/UseApiDemo/useContext"
+      },
+      {
+        "title": "useReducer 用法",
+        "href": "/UseApiDemo/useReducer"
       }
     ]
   },

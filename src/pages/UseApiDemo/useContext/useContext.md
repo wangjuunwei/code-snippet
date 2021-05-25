@@ -12,7 +12,7 @@ prop决定。
 value
 ```
 
-### 1、创建Provide包裹组件
+### 2、创建Provide包裹组件
 
 ```js
 
@@ -29,7 +29,7 @@ const ContextWrapper: React.FC = ({children}) => {
 }
 ```
 
-### 2、创建内部包裹子组件
+### 3、创建内部包裹子组件
 
 ```js
 
@@ -51,7 +51,7 @@ const ThemeInner: React.FC = () => {
 
 ```
 
-### 3、完成包裹组件的编写
+### 4、完成包裹组件的编写
 
 ```js
 import ThemeProvide, {ThemeContext} from './contextWrapper'
