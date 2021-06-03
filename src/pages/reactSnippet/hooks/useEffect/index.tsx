@@ -1,5 +1,5 @@
 import React from "react";
-import CodeWrapper from "../../../component/createCodeWrapper";
+import CodeWrapper from "@component/createCodeWrapper";
 import useEffect from "./useEffect.md";
 
 import {Row, Col, Card, Button} from 'antd'

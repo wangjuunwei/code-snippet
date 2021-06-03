@@ -1,5 +1,5 @@
 import React from "react";
-import CodeWrapper from "../../../component/createCodeWrapper";
+import CodeWrapper from "@component/createCodeWrapper.tsx";
 
 import useCallback from './useCallback.md'
 

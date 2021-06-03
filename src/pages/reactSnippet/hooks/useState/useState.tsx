@@ -1,7 +1,7 @@
 import React from 'react'
 import {Wrapper, Title} from './css/useState'
 import {Button} from 'antd'
-import CodeWrapper from '../../../component/createCodeWrapper'
+import CodeWrapper from '@component/createCodeWrapper'
 
 import useState from './useState.md'
 

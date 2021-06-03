@@ -1,5 +1,5 @@
 import React from "react";
-import CodeWrapper from "../../../component/createCodeWrapper";
+import CodeWrapper from "@component/createCodeWrapper";
 import useReduder from "./useReducer.md";
 import {Button} from "antd";
 import styled from "styled-components/macro";

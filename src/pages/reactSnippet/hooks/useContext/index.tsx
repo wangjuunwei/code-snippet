@@ -1,5 +1,5 @@
 import React from "react";
-import CodeWrapper from "../../../component/createCodeWrapper";
+import CodeWrapper from "@component/createCodeWrapper";
 import useContext from "./useContext.md";
 
 import ThemeProvide, {ThemeContext} from './contextWrapper'
@@ -38,7 +38,7 @@ const ThemeInner: React.FC = () => {
 
 /**
  * @description 外层包裹子组件
- * @provide ThemeProvide  src/pages/UseApiDemo/useContext/contextWrapper.tsx
+ * @provide ThemeProvide  src/pages/reactSnippet/useContext/contextWrapper.tsx
  * @summary 实际作为包裹组件的外部容器
  *
  */

@@ -4,23 +4,23 @@
     "components": [
       {
         "title": "useState 用法",
-        "href": "/UseApiDemo/useState"
+        "href": "/reactSnippet/useState"
       },
       {
         "title": "useEffect 用法",
-        "href": "/UseApiDemo/useEffect"
+        "href": "/reactSnippet/useEffect"
       },
       {
         "title": "useContext 用法",
-        "href": "/UseApiDemo/useContext"
+        "href": "/reactSnippet/useContext"
       },
       {
         "title": "useReducer 用法",
-        "href": "/UseApiDemo/useReducer"
+        "href": "/reactSnippet/useReducer"
       },
       {
         "title": "useCallback 用法",
-        "href": "/UseApiDemo/useCallback"
+        "href": "/reactSnippet/useCallback"
       }
     ]
   },
@@ -28,8 +28,8 @@
     "name": "JS 基础API",
     "components": [
       {
-        "title": "useState",
-        "href": "/aba"
+        "title": "装饰器网络逻辑",
+        "href": "/javascriptSnippet/DecoratorHttp"
       }
     ]
   }
