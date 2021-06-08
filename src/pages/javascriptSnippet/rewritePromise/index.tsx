@@ -1,69 +1,42 @@
 import React from "react";
 import Rpromise from './Promise'
+import CodeWrapper from "@component/createCodeWrapper.tsx";
+import RpromiseMd from './rewritePromise.md'
 
+const fn: () => Rpromise<string> = () => {
+    return new Rpromise((resolve, reject) => {
+
+        setTimeout(() => {
+
+            resolve('Promise 修改状态')
+        }, 2000)
+    })
+}
 
 const PromisePR: React.FC = () => {
 
-
-    new Rpromise((reslove: any, reject: any) => {
-
-        reslove('success')
-    }).then(
-        (res: any) => {
-            console.log('Rpromise', res)
-        },
-        (err: any) => {
-            console.log(err)
+    const [value, setValue] = React.useState<string>('初始状态')
+    React.useEffect(() => {
+        async function promise() {
+            let res: any = await fn()
+            setValue(res)
+            console.log("res===", res);
         }
-    )
 
-    new Promise((reslove: any, reject: any) => {
-
-        reslove('success1111')
-    }).then(
-        (res: any) => {
-            console.log('123123123213', res)
-        },
-    )
-
-    //
-    // React.useEffect(() => {
-    //
-    //
-    //
-    // }, [])
-
-    // new Rpromise<void>((resolve) => {
-    //     resolve()
-    // })
-    //     .then(() => {
-    //         return 'step1'
-    //     })
-    //     .then((res) => {
-    //         return res + ':' + 'step2'
-    //     })
-    //     .then((res) => {
-    //         console.log(res) // step1:step2
-    //     })
-
-
-    // new Rpromise((reslove, reject) => {
-    //     setTimeout(() => {
-    //         reslove('timeout success')
-    //     }, 2000)
-    // }).then(
-    //     (res) => {
-    //         console.log(res) // timeout success
-    //     },
-    //     (err) => {
-    //         console.log(err)
-    //     }
-    // )
+        promise()
+    }, [])
 
 
     return (
-        <>我就是过的promise的重写</>
+        <>我会根据Promise的返回值更改状态：{value}</>
     )
 }
 
-export default PromisePR
+
+const RpromiseWrapper: React.FC = () => {
+
+    return (
+        <CodeWrapper component={PromisePR} innerHtml={RpromiseMd}/>
+    )
+}
+export default React.memo(RpromiseWrapper)
