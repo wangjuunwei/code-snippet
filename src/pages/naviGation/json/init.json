@@ -30,6 +30,10 @@
       {
         "title": "装饰器网络逻辑",
         "href": "/javascriptSnippet/DecoratorHttp"
+      },
+      {
+        "title": "Ts重写Promise",
+        "href": "/javascriptSnippet/rewritePromise"
       }
     ]
   }

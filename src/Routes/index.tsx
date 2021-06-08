@@ -18,6 +18,7 @@ const UseCallback = React.lazy(() => import('../pages/reactSnippet/hooks/useCall
 //Js/Ts 相关地址
 const JsSnippet = React.lazy(() => import('../pages/javascriptSnippet/index'))
 const DecoratorHttp = React.lazy(() => import('../pages/javascriptSnippet/decorartorHttpTp/index'))
+const RewritePromise = React.lazy(() => import('../pages/javascriptSnippet/rewritePromise/index'))
 
 
 export const routes: RouteConfig[] = [
@@ -41,7 +42,8 @@ export const routes: RouteConfig[] = [
         path: '/javascriptSnippet',
         component: JsSnippet,
         routes: [
-            {path: '/javascriptSnippet/DecoratorHttp', exact: true, component: DecoratorHttp}
+            {path: '/javascriptSnippet/DecoratorHttp', exact: true, component: DecoratorHttp},
+            {path: '/javascriptSnippet/rewritePromise', exact: true, component: RewritePromise}
         ]
     },
     {path: '*', render: () => <div>405</div>},

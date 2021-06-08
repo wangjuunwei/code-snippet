@@ -8,7 +8,7 @@ const DecoratorHttp: React.FC = () => {
     useEffect(() => {
         const testFunction = async () => {
             const test = new HttpRequest()
-            let end = await test.test({name: 123, value: 456, seuce: 7890})
+            let end = await test.test({id: 1})
             console.log(end)
         };
         testFunction();
