@@ -1,8 +1,6 @@
 import {CommonHttpTemplate, CommonHttpTemplateConfig, ErrorType} from '../types/index'
 
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
-import {Reject, Resolve} from "../../../../pages/javascriptSnippet/rewritePromise/type";
-import Rpromise from "../../../../pages/javascriptSnippet/rewritePromise/Promise";
 
 class HttpBaseTemplate extends CommonHttpTemplate {
     public commonHttpTemplateConfig: CommonHttpTemplateConfig;
@@ -89,55 +87,3 @@ const HttpTemplate = (() => {
     }
 })()
 export default HttpTemplate
-
-
-
-
-function resolvePromise<T>(promise2: Rpromise<T>, x: T | PromiseLike<T>, resolve: Resolve<T>, reject: Reject) {
-
-
-    if (promise2 === x) {
-        const e = new Error('TypeError: Chaining cycle detected for promise #<MyPromise>')
-        e.stack = ''
-        return reject(e)
-    }
-    let called = false
-
-    if ((typeof x === 'object' && x != null) || typeof x === 'function') {
-        try {
-            const then = (x as PromiseLike<T>).then
-
-            if (typeof then === 'function') {
-                then.call(
-                    x,
-                    (y: T | PromiseLike<T>) => {
-                        if (called) return
-                        called = true
-                        // 如果是 Promise，我们应该递归地获取到最终状态的值，传入相同的处理函数，不论是成功还是失败都能直接抛出到最外层
-                        resolvePromise(promise2, y, resolve, reject)
-                    },
-                    (r: any) => {
-                        if (called) return
-                        called = true
-                        // 如果传入的 Promise 被拒绝，直接抛出到最外层
-                        reject(r)
-                    }
-                );
-            } else {
-                resolve(x)
-            }
-
-        } catch (e) {
-            // 如果中间有错误。直接变为拒绝态
-            // 但是如果出现错误之前已经改变了状态，那么久不用管
-            if (called) return
-            called = true
-            reject(e)
-        }
-    } else {
-        // 普通值处理
-        resolve(x)
-    }
-
-
-}

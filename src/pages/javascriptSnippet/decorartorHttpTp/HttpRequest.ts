@@ -1,11 +1,8 @@
 import {
     HttpPost,
-    HttpGet,
     HttpHeader,
     HttpRes,
     HttpBaseUrl,
-    HttpParams,
-    HttpTransformRequest,
     HttpPostData
 } from "@utils/httpRequest/decorartorHttpTp/index"
 
