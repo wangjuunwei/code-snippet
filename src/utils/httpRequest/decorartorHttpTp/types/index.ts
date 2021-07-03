@@ -10,6 +10,7 @@ export const ReqMethodKeyParams = Symbol("PostKeyParams")
 export const ReqMethodKeyQuery = Symbol("PostKeyQuery")
 export const ReqMethodHeaders = Symbol("RequestHeaders")
 export const ReqHttpTransformRequest = Symbol("HttpTransformRequest")
+export const ReqHttpRequestConfig = Symbol("HttpRequestConfig")
 export const ReqHttpBaseUrl = Symbol("HttpBaseUrl")
 export const ResHttpResponseType = Symbol("HttpResponseType")
 
@@ -35,7 +36,8 @@ export interface CommonHttpTemplateConfig extends AxiosRequestConfig {
     timeout?: number
     requestInterceptors?: (config: AxiosRequestConfig) => AxiosRequestConfig
     responseInterceptors?: (data: AxiosResponse) => any
-    error?: (errType: ErrorType, err: Error) => any
+    error?: (errType: ErrorType, err: Error) => any,
+    baseURL?: string
 }
 
 export type ErrorType =

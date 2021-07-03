@@ -6,7 +6,8 @@ import {
     ReqMethodKeyParams,
     ReqMethodKeyQuery,
     ReqMethodParams,
-    ReqMethodQuery
+    ReqMethodQuery,
+    ReqHttpRequestConfig
 } from '../types/index'
 
 import 'reflect-metadata'
@@ -67,6 +68,7 @@ export function HttpTransformRequest(transformRequest: (data: any) => any) {
         Reflect.defineMetadata(ReqHttpTransformRequest, transformRequest, target, propertyKey);
     }
 }
+
 /**
  * 接口前缀地址
  * @param baseUrl<string> 接口地址
@@ -77,5 +79,12 @@ export function HttpBaseUrl(baseUrl: string) {
     return function (target: any, propertyKey: string) {
 
         Reflect.defineMetadata(ReqHttpBaseUrl, baseUrl, target, propertyKey)
+    }
+}
+
+
+export function HttpConfig(config?: { [key: string]: any }) {
+    return function (target: any, propertyKey: string, parameterIndex: number) {
+        Reflect.defineMetadata(ReqHttpRequestConfig, parameterIndex, target, propertyKey);
     }
 }

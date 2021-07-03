@@ -36,7 +36,7 @@ const SimpleUseState: React.FC<{}> = () => {
     }
     return (
         <div className='simpleBox'>
-            <Title>{simpleState}</Title>
+
             <Button className='simpleBox-button' type="primary"
                     onClick={() => changeSimpleState(simpleState + 1)}>我是基础用法</Button>
         </div>
