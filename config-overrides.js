@@ -9,6 +9,8 @@ module.exports = override(addDecoratorsLegacy(), useBabelRc(), addWebpackModuleR
     ),
     addWebpackAlias({
         "@utils": path.resolve(__dirname, "./src/utils"),
-        "@component": path.resolve(__dirname, './src/component')
+        "@component": path.resolve(__dirname, './src/component'),
+        "@HttpRequest": path.resolve(__dirname, './src/HttpRequest'),
+        "@typings":path.resolve(__dirname,'./src/typings')
     })
 )

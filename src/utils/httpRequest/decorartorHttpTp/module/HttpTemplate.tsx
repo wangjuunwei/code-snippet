@@ -2,6 +2,8 @@ import {CommonHttpTemplate, CommonHttpTemplateConfig, ErrorType} from '../types/
 
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
 
+import {message} from 'antd'
+
 class HttpBaseTemplate extends CommonHttpTemplate {
     public commonHttpTemplateConfig: CommonHttpTemplateConfig;
 
@@ -24,6 +26,12 @@ class HttpBaseTemplate extends CommonHttpTemplate {
 
         instance.interceptors.request.use(
             (config: AxiosRequestConfig) => {
+
+                const token = localStorage.getItem('token')
+
+                if (token) {
+                    config.headers.common['Authorization'] = 'Bearer ' + token
+                }
                 if (this.commonHttpTemplateConfig.requestInterceptors) {
                     return this.commonHttpTemplateConfig.requestInterceptors(config)
                 }
@@ -40,13 +48,30 @@ class HttpBaseTemplate extends CommonHttpTemplate {
      */
     public responseInterceptors(instance: AxiosInstance): AxiosInstance {
         instance.interceptors.response.use(
-            (config: AxiosResponse) => {
-                if (this.commonHttpTemplateConfig.responseInterceptors) {
-                    return this.commonHttpTemplateConfig.responseInterceptors(config);
+            (response: AxiosResponse) => {
+                let {data, config} = response
+                if (config.url === '/user/login' && data.data) {
+                    localStorage.setItem('token', data.data.token)
                 }
-                return config;
+                // if (data.code&&data.code === -666) {
+                //
+                //     Modal.warning({
+                //         title: '提示',
+                //         content: '当前登陆已失效',
+                //         onOk: () => setTimeout(() => window.location.href = '/')
+                //     })
+                //
+                //     // debugger
+                //     // setTimeout(() => window.location.href = '/', 0)
+                //
+                // }
+
+                if (this.commonHttpTemplateConfig.responseInterceptors) {
+                    return this.commonHttpTemplateConfig.responseInterceptors(response);
+                }
+                return response;
             },
-            (error: Error) => this.httpError('PROMISE-HTTP-ERROR' ,error)
+            (error: Error) => this.httpError('PROMISE-HTTP-ERROR', error)
         )
         return instance;
     }
@@ -67,7 +92,7 @@ class HttpBaseTemplate extends CommonHttpTemplate {
      * @param error
      */
     public httpError(errorType: ErrorType, error: Error) {
-        console.log(error);
+        message.error('网络异常')
     }
 
 }

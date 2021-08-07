@@ -19,7 +19,9 @@ const UseCallback = React.lazy(() => import('../pages/reactSnippet/hooks/useCall
 const JsSnippet = React.lazy(() => import('../pages/javascriptSnippet/index'))
 const DecoratorHttp = React.lazy(() => import('../pages/javascriptSnippet/decorartorHttpTp/index'))
 const RewritePromise = React.lazy(() => import('../pages/javascriptSnippet/rewritePromise/index'))
-const ValueCopy = React.lazy(()=>import('../pages/javascriptSnippet/valueCopy/index'))
+const ValueCopy = React.lazy(() => import('../pages/javascriptSnippet/valueCopy/index'))
+const JWT = React.lazy(() => import ('../pages/javascriptSnippet/jwt/index'))
+const FileUpload = React.lazy(() => import('../pages/javascriptSnippet/fileUpload/index'))
 
 
 export const routes: RouteConfig[] = [
@@ -45,7 +47,9 @@ export const routes: RouteConfig[] = [
         routes: [
             {path: '/javascriptSnippet/DecoratorHttp', exact: true, component: DecoratorHttp},
             {path: '/javascriptSnippet/rewritePromise', exact: true, component: RewritePromise},
-            {path: '/javascriptSnippet/valueCopy', exact: true, component: ValueCopy}
+            {path: '/javascriptSnippet/valueCopy', exact: true, component: ValueCopy},
+            {path: '/javascriptSnippet/jwt', exact: true, component: JWT},
+            {path: '/javascriptSnippet/fileupload', exact: true, component: FileUpload}
         ]
     },
     {path: '*', render: () => <div>405</div>},

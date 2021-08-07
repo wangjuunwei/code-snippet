@@ -10,14 +10,15 @@ import {
     ReqHttpTransformRequest,
     ReqMethodKeyData,
     ReqMethodKeyParams,
-    ReqMethodKeyQuery, ReqHttpBaseUrl, ResHttpResponseType
+    ReqMethodKeyQuery, ReqHttpBaseUrl, ResHttpResponseType,
+    ReqHttpRequestConfig
 } from "../../types";
 
 import {AxiosInstance, AxiosResponse} from 'axios'
 import HttpTemplate from "../../module/HttpTemplate";
 import {isEmptyFunction} from '../../utils/check'
 
-const httpClient: CommonHttpTemplate = HttpTemplate({})
+const httpClient: CommonHttpTemplate = HttpTemplate({withCredentials: true, baseURL: 'http://192.168.31.214:7001'})
 const httpInstance: AxiosInstance = httpClient.getHttpInstance()
 export const createHttpDecoratorFunction = (type: HttpTemplateMethod, url: string, data: any = {}, options: string[] = []) => {
 
@@ -33,20 +34,21 @@ export const createHttpDecoratorFunction = (type: HttpTemplateMethod, url: strin
                 reqQueryKey,
                 baseUrl,
                 reqHttpTransform,
-                requestConfig,
+                requestHeaders,
                 reqParamsIndex,
                 reqQueryIndex,
                 resIndex,
-                reqDataIndex
+                reqDataIndex,
+                requestConfigIndex
             } = getMetadata(target, propertyKey)
 
             try {
                 const args: Array<any> = [...argument]
-                console.log("args===", args);
                 let query: any = {};
                 let params: any = {};
                 let postData: any = {};
                 let httpUrl = url;
+                let requestConfig: any = {}
 
                 // 当存在 HttpQuery 注解时 会拿到被 HttpQuery 注解的参数, 拿到 httpBaseUrl
                 // path 参数
@@ -68,12 +70,18 @@ export const createHttpDecoratorFunction = (type: HttpTemplateMethod, url: strin
                     postData = dataObj.data
                 }
 
-                const requestHttpConfig: any = [...requestConfig, ...options]
+                if (requestConfigIndex >= 0) {
+
+                    requestConfig = args && args[requestConfigIndex];
+                }
+
+                const requestHttpHeaders: any = [...requestHeaders, ...options]
                 const res: any = await requestData(type, baseUrl ? baseUrl + httpUrl : httpUrl, {
                     query,
                     params,
                     postData
-                }, requestHttpConfig, reqHttpTransform, responseType)
+                }, requestHttpHeaders, reqHttpTransform, responseType, requestConfig)
+
 
                 if (isEmptyFunction(menthod) || resIndex === undefined || resIndex < 0) {
 
@@ -106,7 +114,8 @@ function getMetadata(target: any, propertyKey: string) {
     const reqHttpTransform: number = Reflect.getOwnMetadata(ReqHttpTransformRequest, target, propertyKey);
     const baseUrl: string = Reflect.getOwnMetadata(ReqHttpBaseUrl, target, propertyKey);
     const responseType: ResponseType = Reflect.getOwnMetadata(ResHttpResponseType, target, propertyKey);
-    const requestConfig: string[] = Reflect.getOwnMetadata(ReqMethodHeaders, target, propertyKey) || [];
+    const requestHeaders: string[] = Reflect.getOwnMetadata(ReqMethodHeaders, target, propertyKey) || [];
+    const requestConfigIndex: number = Reflect.getOwnMetadata(ReqHttpRequestConfig, target, propertyKey) || {}
     return {
         reqDataKey,
         reqParamsKey,
@@ -114,11 +123,12 @@ function getMetadata(target: any, propertyKey: string) {
         reqQueryKey,
         baseUrl,
         reqHttpTransform,
-        requestConfig,
+        requestHeaders,
         reqParamsIndex,
         reqQueryIndex,
         resIndex,
-        reqDataIndex
+        reqDataIndex,
+        requestConfigIndex
     }
 }
 
@@ -127,7 +137,7 @@ function getMetadata(target: any, propertyKey: string) {
  * @param options
  */
 
-export const getConfig = (options: string[]) => {
+export const getHeaderConfig = (options: string[]) => {
     return options.reduce((preValue, header) => {
 
         const match = header.match(/([^:]+):\s*(.*)/);
@@ -172,18 +182,22 @@ export const getHttpData = (type: HttpTemplateMethod, httpUrl: string, data: any
  * @param reqHttpTransform
  * @param responseType
  */
-export function requestData(type: string, url: string, data: { query: any; params: any; postData: any; }, options: any, reqHttpTransform: any, responseType: string) {
+export function requestData(type: string, url: string, data: { query: any; params: any; postData: any; }, headers: any, reqHttpTransform: any, responseType: string, requestConfig: { [key: string]: any }) {
     return new Promise(async (resolve, reject) => {
         const {query, params, postData} = data;
-        const config: any = getConfig(options);
+        console.log("requestConfig===", requestConfig);
+        const header: any = getHeaderConfig(headers);
         const requestData: any = {
-            url: url,
-            method: type,
-            headers: config,
-            params: JSON.stringify(query) === "{}" ? params : query,
-            data: postData,
-            responseType: responseType || 'json'
+            ...{
+                url: url,
+                method: type,
+                headers: header,
+                params: JSON.stringify(query) === "{}" ? params : query,
+                data: postData,
+                responseType: responseType || 'json'
+            }, ...requestConfig
         }
+
         if (reqHttpTransform) {
             requestData['transformRequest'] = reqHttpTransform
         }
