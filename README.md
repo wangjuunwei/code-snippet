@@ -17,7 +17,7 @@
 - [x] <a href='https://github.com/wangjuunwei/code-snippet/tree/main/src/pages/javascriptSnippet/jwt'>JWT 验证</a>
 - [x] <a href='https://github.com/wangjuunwei/code-snippet/tree/126511f2af86b80ef56f20f433d9c97c6ad9ba05/src/pages/javascriptSnippet/decorartorHttpTp'>装饰器版的网络请求</a>
 - [ ] 服务器部署，包括后端的部署
-- [ ] 完成的测试用例
+- [ ] 完整的测试用例
 - [ ] webpack的持续优化
 
 # 运行
